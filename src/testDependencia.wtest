@@ -1,0 +1,46 @@
+import flotasDeAuto.*
+import dependencia.*
+import colores.*
+
+test "Dependencias" {
+	
+	const deportes = new Dependencia(cantEmpleados=45)
+	const cultura = new Dependencia(cantEmpleados=31)
+	
+	const cachito = new ChevroletCorsa(color=rojo)
+	const corsaAzul1 = new ChevroletCorsa(color=azul)
+	const corsaverde1 = new ChevroletCorsa(color=verde)
+	const kwid1 = new RenaultKwid(tieneTanqueAdicional=true)
+	const especial1 = new Especial(capacidad=5, velocidadMaxima=160, peso=1200, color=beige )
+	deportes.agregarAFlota(cachito)
+	deportes.agregarAFlota(corsaAzul1)
+	deportes.agregarAFlota(corsaverde1)
+	deportes.agregarAFlota(kwid1)
+	deportes.agregarAFlota(especial1)
+	
+	const kwid2 = new RenaultKwid(tieneTanqueAdicional=true)
+	const kwid3 = new RenaultKwid(tieneTanqueAdicional=true)
+	const kwid4 = new RenaultKwid(tieneTanqueAdicional=false)
+	trafic.interior(interiorPopular)
+	trafic.motor(motorBataton)
+	
+	cultura.agregarAFlota(cachito)
+	cultura.agregarAFlota(kwid2)
+	cultura.agregarAFlota(kwid3)
+	cultura.agregarAFlota(kwid4)
+	cultura.agregarAFlota(trafic)
+	
+	assert.equals(25, deportes.capacidadFaltante())
+	assert.equals(6450, deportes.pesoTotalFlota())  //1300 de cachito, 2600 de los otros dos corsa, 1350 del kwid con tanque y 1200 del especial
+	assert.equals(true, deportes.estaBienEquipada())
+	assert.equals(7, deportes.capacidadTotalEnColor(azul)) //4 del corsa y 3 del kwid con tanque adicional
+	assert.equals(beige, deportes.colorDelRodadoMasRapido()) //auto especial
+	assert.equals(true,deportes.esGrande())
+	
+	assert.equals(5, cultura.capacidadFaltante())
+	assert.equals(10700, cultura.pesoTotalFlota()) //2700 de los kwid con tanque, 1200 del kwid sin tanque, 1300 de cachito, 5500 de la trafic con interior y motor
+	assert.equals(false, cultura.estaBienEquipada()) //el motor bataton de la trafic tiene una velocidad maxima de 80kmxhs. no llega a 100
+	assert.equals(10, cultura.capacidadTotalEnColor(azul)) //3 por cada kwid con tanque(6 en total) más 4 del kwid sin tanque
+	assert.equals(rojo, cultura.colorDelRodadoMasRapido()) //cachito
+	assert.equals(false,cultura.esGrande()) //solo tiene 31 empleados. tienen que ser minimo 40
+}
