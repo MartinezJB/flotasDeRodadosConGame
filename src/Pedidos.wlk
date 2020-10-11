@@ -13,9 +13,10 @@ class Pedido {
 	method puedeSatisfacerPedido(auto) {
 		const es10KmMayor = auto.velocidadMaxima()  >= self.velocidadRequerida() + 10
 		const esCapacidadCorrecta = auto.capacidad() >= self.cantPasajeros()
-		const esColorCompatible = !self.coloresIncompatibles().contains(auto.color())
-		return (es10KmMayor and esCapacidadCorrecta and esColorCompatible)
+		return (es10KmMayor and esCapacidadCorrecta and self.esColorCompatible(auto.color()))
 	}
+	method esColorCompatible(color) { return !self.esColorIncompatible(color) }
+	method esColorIncompatible(color) { return coloresIncompatibles.contains(color) }
 	method acelerar() { tiempoMaximo -= 1 }
 	method relajar() { tiempoMaximo += 1 }
 }
