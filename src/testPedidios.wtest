@@ -1,0 +1,21 @@
+import flotasDeAuto.*
+import colores.*
+import Pedidos.*
+
+test "testPedidos" {
+	const pedido = new Pedido(distanciaARecorrer= 960, tiempoMaximo= 8, cantPasajeros=4, coloresIncompatibles=#{azul, verde})
+	const cachito = new ChevroletCorsa(color=rojo)
+	
+	assert.equals(true,pedido.puedeSatisfacerPedido(cachito))
+
+	pedido.acelerar()//para llegar a tiempoMaximo 6 como dice el enunciado
+	pedido.acelerar()
+	assert.equals(false,pedido.puedeSatisfacerPedido(cachito))
+	pedido.relajar()//para que vuelva tiempoMaximo 8 de nuevo 
+	pedido.relajar()//y asi no tener inconvenientes con el proximo test
+	
+	pedido.agregarColor(rojo)
+	assert.equals(false,pedido.puedeSatisfacerPedido(cachito))
+	
+
+}

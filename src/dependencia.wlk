@@ -14,3 +14,5 @@ class Dependencia {
 	method capacidadFaltante() { return 0.max( cantEmpleados - flota.sum({ each => each.capacidad() }) ) }
 	method esGrande() { return cantEmpleados >= 40 and flota.size() >= 5 }
 }
+
+
